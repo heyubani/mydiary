@@ -7,6 +7,7 @@
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "chai": "^4.3.4",
+    "config": "^3.3.6",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^10.0.0",

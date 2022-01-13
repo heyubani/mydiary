@@ -1,8 +1,11 @@
 const bcrypt = require("bcryptjs");
+require("bluebird").config()
 // const jwt = require("jsonwebtoken");
 
-const hashPassword = async (password) => {
-  const encryptedPassword = await bcrypt.hash(password, 10);
+
+const hashPassword = (password) => {
+  console.log(password)
+  const encryptedPassword = bcrypt.hash(password, 10);
   return encryptedPassword;
 };
 

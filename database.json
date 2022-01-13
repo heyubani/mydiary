@@ -1,9 +1,6 @@
 {
-    "dev": {
-      "driver": "pg",
-      "user": "postgres",
-      "password": "password",
-      "host": "localhost",
-      "database": "migrationdb"
-    }
+    "development": {
+      "ENV": "DATABASE_URL"
+    },
+    "sql-file": true
   }

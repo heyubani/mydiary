@@ -17,7 +17,9 @@
     "nodemon": "^2.0.15",
     "pg-promise": "^10.11.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jshint": "^2.13.3"
+  },
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

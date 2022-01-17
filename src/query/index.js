@@ -30,8 +30,9 @@ UPDATE users
         name,
         description,
         content,
+        imagefile,
         user_id
-    )   VALUES($1, $2, $3, $4) RETURNING * 
+    )   VALUES($1, $2, $3, $4, $5) RETURNING * 
     `,
   userDiaries: `
   SELECT * FROM diary

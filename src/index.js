@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require("dotenv");
 const fileUpload = require('express-fileupload');
+const path = require('path')
 const config = require('./config/env');
 
 
@@ -12,26 +13,12 @@ const port = config.APP_PORT;
 dotenv.config();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
+app.use(fileUpload());
 
 app.get('/', (req, res) => res.send('Hello World!rrrr'));
 
 app.use(route);
 
-app.use(fileUpload());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-const fileUpLoad = (req, res) => {
-  if (!req.files) return res.status(400).send('No files were uploaded!');
-
-  const { foo } = req.files;
-  const uploadTo = `uploads/${foo.name}`;
-
-  foo.mv(uploadTo, (err) => {
-    if (err) return res.status(500).send(err);
-
-    res.send(`File uploaded to <a href="${uploadTo}">${uploadTo}</a>`);
-  });
-};
 
 // ERROR HANDLING
 app.use((req, res) => {
@@ -57,7 +44,3 @@ db.connect()
   .catch((error) => {
     console.log(error.message);
   });
-
-
-
-  module.exports = fileUpLoad

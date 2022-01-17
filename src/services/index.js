@@ -26,8 +26,8 @@ const isUser = (email) => {
 };
 
 const addDiary = (body, user_id) => {
- const {name, description, content} = body;
- const payload = [name, description, content, user_id];
+ const {name, description, content, imagefile} = body;
+ const payload = [name, description, content, imagefile, user_id];
  return db.any(queries.addDiary, payload);
 };
 

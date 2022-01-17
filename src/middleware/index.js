@@ -97,7 +97,7 @@ const validateUser = (data, type) => async (req, res, next) => {
       errors: data.message,
     });
   } catch (error) {
-    next(error);
+    next(error.message);
   }
 };
 

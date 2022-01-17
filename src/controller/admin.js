@@ -66,7 +66,7 @@ const adminSearchUser = async (req, res) => {
     }
   };
 
-  const adminSearch_diary = async (req, res) => {
+  const adminSearchDiary = async (req, res) => {
     try {
       const search = req.query.search;
       const data = await adminSearchDiary(search);
@@ -138,7 +138,7 @@ const adminSearchUser = async (req, res) => {
 module.exports = {
   getUsers,
   adminSearchUser,
-  adminSearch_diary,
+  adminSearchDiary,
   getAllDiaries,
   adminAddDiary,
   adminEditUser,

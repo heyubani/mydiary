@@ -11,7 +11,7 @@ const {
   getUsers,
   adminSearchUser,
   getAllDiaries,
-  adminSearch_diary,
+  adminSearchDiary,
   adminAddDiary,
   adminEditUser,
   adminEditUserDiary,
@@ -44,7 +44,7 @@ router.get(
   getUsers,
 );
 router.get('/api/admin/search/user', authenticateIsAdmin, adminSearchUser);
-router.get('/api/admin/search/diary', authenticateIsAdmin, adminSearch_diary);
+router.get('/api/admin/search/diary', authenticateIsAdmin, adminSearchDiary);
 router.get('/api/admin/get-diaries', authenticateIsAdmin, getAllDiaries);
 router.post('/api/admin/add-diary/:user_id', authenticateToken, adminAddDiary);
 router.put('/api/admin/edit_user/:id', authenticateToken, adminEditUser);

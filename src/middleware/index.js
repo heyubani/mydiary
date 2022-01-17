@@ -1,8 +1,8 @@
-const { isUser } = require("../services");
+const { isUser, Users, signIn } = require("../services");
 const config = require("../config/env")
 const jwt = require("jsonwebtoken")
 
- 
+
 const checkUser = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -44,8 +44,67 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
+const authenticateIsAdmin = async (req, res, next) => {
+  try {
+    const userIsAdmin = req.decoded.is_admin;
+    if(!userIsAdmin){
+      res.json({
+        status: "failed",
+        message: "user is not an admin"
+      }).status(403)
+    }
+    next();
+  } catch (error) {
+    console.log(error.message);
+  }
+} 
+
+const allUsers = (req, res, next) => {
+  try {
+    const users = Users();
+    req.body.isFirstUser = users.length === 0;
+    next();
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+
+const validateUser = (data, type) => async (req, res, next) => {
+  try {
+    const getType = {
+      body: req.body,
+      params: req.params,
+      queries: req.queries,
+      headers: req.headers,
+    };
+    const options = {
+      language: {
+        key: "{{key}}"
+      },
+    };
+    const result = getType[type];
+    const isValid = await data.schema.validate(result, options);
+    if (!isValid.error) {
+      return next();
+    }
+    const {
+      message
+    } = isValid.error.details[0];
+    return res.status(400).json({
+      status: "fail",
+      message: message.replace(/[\"]/gi, ""),
+      errors: data.message,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   checkUser,
-  authenticateToken 
-  
+  authenticateToken,
+  authenticateIsAdmin,
+  allUsers,
+  validateUser
 };

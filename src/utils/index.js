@@ -4,7 +4,6 @@ require("bluebird").config()
 
 
 const hashPassword = (password) => {
-  console.log(password)
   const encryptedPassword = bcrypt.hash(password, 10);
   return encryptedPassword;
 };

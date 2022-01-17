@@ -11,12 +11,19 @@ const queries = {
     `,
 
   login: `SELECT * FROM users WHERE email=$1`,
-
+  editUser: `
+UPDATE users
+    SET first_name = $1,
+    last_name = $2,
+    email = $3
+    WHERE id = $4
+    RETURNING *
+`,
   checkUser: `
     SELECT * FROM users WHERE email=$1
     `,
   allUser: `
-    SELECT * FROM users where email=$1
+    SELECT * FROM users
     `,
   addDiary: `
     INSERT INTO diary (
@@ -26,6 +33,9 @@ const queries = {
         user_id
     )   VALUES($1, $2, $3, $4) RETURNING * 
     `,
+  userDiaries: `
+  SELECT * FROM diary
+  `,
   updateDiary: `
     UPDATE diary
     SET name = $1,
@@ -34,17 +44,38 @@ const queries = {
         WHERE id = $4
         RETURNING *
     `,
-    fetchUsers: `
+    adminUpdateUserDiary: `
+    UPDATE diary
+    SET description=$1,
+        content=$2
+        WHERE id=$3
+        RETURNING *
+    `,
+  fetchUsers: `
     SELECT name, description, content FROM diary WHERE user_id=$1 
     `,
-    searchUser: `
+  searchDiary: `
     SELECT	* 
     FROM diary
     WHERE LOWER(name) LIKE $1
     `,
-    deleteDiary: `
+  adminSearchDiary: `
+    SELECT	* 
+    FROM diary
+    WHERE LOWER(description) LIKE $1
+    `,
+  deleteDiary: `
     DELETE FROM diary WHERE id=$1
-    `
+    `,
+  adminAddDiary: `
+    INSERT INTO diary (
+         name,
+        description,
+        content,
+        user_id
+    )   VALUES($1, $2, $3, $4) RETURNING * 
+
+    `,
 };
 
 module.exports = queries;

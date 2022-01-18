@@ -28,9 +28,9 @@ const router = express.Router();
 
 
 // user endpoints
-router.post('/api/signup',allUsers, checkUser, createNewUser);
-router.post('/api/signin', logIn);
-router.post('/api/user/diary', authenticateToken, diary);
+router.post('/api/signup',validateUser(createUserSchema), allUsers, checkUser, createNewUser);
+router.post('/api/signin',validateUser(loginUserSchema), logIn);
+router.post('/api/user/diary',validateUser(addDiarySchema), authenticateToken, diary);
 router.put('/api/user/diary/:id', authenticateToken, updateUserDiary);
 router.get('/api/user/diary/:id', authenticateToken, getUserDiary);
 router.get('/api/user/search/diary', authenticateToken, userSearchDiary);

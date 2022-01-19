@@ -126,7 +126,7 @@ const getUserDiary = async (req, res) => {
   }
 };
 
-const UserSearchDiary = async (req, res) => {
+const userSearchDiary = async (req, res) => {
   try {
     const search = req.query.search;
     const data = await searchDiary(search);
@@ -173,6 +173,6 @@ module.exports = {
   diary,
   updateUserDiary,
   getUserDiary,
-  UserSearchDiary,
+  userSearchDiary,
   deleteUserDiary,
 };

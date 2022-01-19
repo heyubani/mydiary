@@ -66,7 +66,7 @@ const adminSearchUser = async (req, res) => {
     }
   };
 
-  const adminSearch_diary = async (req, res) => {
+  const adminCanSearchDiary = async (req, res) => {
     try {
       const search = req.query.search;
       const data = await adminSearchDiary(search);
@@ -104,7 +104,6 @@ const adminSearchUser = async (req, res) => {
     try {
       const user_id = req.params.id;
       const editUser = await adminUpdateUser(req.body, user_id);
-      console.log(user_id, "=====<<<<")
         res.json({
           status: 'success',
           message: 'edited user successfully',
@@ -118,10 +117,7 @@ const adminSearchUser = async (req, res) => {
     const adminEditUserDiary = async (req, res) => {
       try {
         const { id } = req.params;
-        // console.log(user_id, id, req.params);
         const editUserDiary = await adminEditDiary(req.body, id);
-        console.log("==", editUserDiary, "======----")
-    
         res
           .json({
             status: 'success',
@@ -130,7 +126,7 @@ const adminSearchUser = async (req, res) => {
           })
           .status(201);
       } catch (error) {
-        console.log(">>>>>>",error.message);
+        console.log(error.message);
       }
     };
 
@@ -138,7 +134,7 @@ const adminSearchUser = async (req, res) => {
 module.exports = {
   getUsers,
   adminSearchUser,
-  adminSearch_diary,
+  adminCanSearchDiary,
   getAllDiaries,
   adminAddDiary,
   adminEditUser,

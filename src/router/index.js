@@ -1,6 +1,7 @@
 const express = require('express');
 const upload  = require('../middleware/multer')
 const { createUserSchema, loginUserSchema, addDiarySchema} = require("../validation")
+
 const {
   checkUser,
   authenticateToken,
@@ -12,7 +13,7 @@ const {
   getUsers,
   adminSearchUser,
   getAllDiaries,
-  adminSearch_diary,
+  adminCanSearchDiary,
   adminAddDiary,
   adminEditUser,
   adminEditUserDiary,
@@ -23,7 +24,7 @@ const {
   diary,
   updateUserDiary,
   getUserDiary,
-  UserSearchDiary,
+  userSearchDiary,
   deleteUserDiary,
 } = require('../controller/index');
 const router = express.Router();
@@ -35,7 +36,7 @@ router.post('/api/signin',validateUser(loginUserSchema), logIn);
 router.post('/api/user/diary',validateUser(addDiarySchema), authenticateToken, upload.single('imagefile'), diary);
 router.put('/api/user/diary/:id', authenticateToken, updateUserDiary);
 router.get('/api/user/diary/:id', authenticateToken, getUserDiary);
-router.get('/api/user/search/diary', authenticateToken, UserSearchDiary);
+router.get('/api/user/search/diary', authenticateToken, userSearchDiary);
 router.delete('/api/user/diary/:id', authenticateToken, deleteUserDiary);
 // admin endpoints
 router.get(
@@ -45,7 +46,7 @@ router.get(
   getUsers,
 );
 router.get('/api/admin/search/user', authenticateIsAdmin, adminSearchUser);
-router.get('/api/admin/search/diary', authenticateIsAdmin, adminSearch_diary);
+router.get('/api/admin/search/diary', authenticateIsAdmin, adminCanSearchDiary);
 router.get('/api/admin/get-diaries', authenticateIsAdmin, getAllDiaries);
 router.post('/api/admin/add-diary/:user_id', authenticateToken, adminAddDiary);
 router.put('/api/admin/edit_user/:id', authenticateToken, adminEditUser);

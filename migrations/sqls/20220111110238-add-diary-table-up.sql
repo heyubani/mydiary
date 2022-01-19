@@ -5,7 +5,8 @@ id serial PRIMARY KEY,
 name VARCHAR NOT NULL,
 description VARCHAR NOT NULL,
 content VARCHAR NOT NULL,
-user_id INT REFERENCES users(id) ON DELETE CASCADE,
+imagefile VARCHAR(100),
+userId INT REFERENCES users(id) ON DELETE CASCADE,
 created_at timestamp DEFAULT NOW(),
 updated_at timestamp DEFAULT NOW()
 )

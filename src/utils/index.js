@@ -13,7 +13,15 @@ const comparePassword = async (password, userPassword) => {
   return isValid;
 };
 
+const Error = (message, code) => ({
+  status: 'error',
+  message,
+  code,
+  data: null,
+});
+
 module.exports = {
     hashPassword,
-    comparePassword
+    comparePassword,
+    Error
 }

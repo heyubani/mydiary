@@ -3,6 +3,7 @@ const queries = require("../query")
 const { hashPassword } = require("../utils")
 
 const createUser = async (body) => {
+try {
   const { firstName, lastName, email, password, isFirstUser } = body;
   const encryptedPassword = await hashPassword(password);
   const payload = [
@@ -13,6 +14,9 @@ const createUser = async (body) => {
     isFirstUser
   ];
   return db.any(queries.newUser, payload);
+} catch (error) {
+  console.log("ttt",console.log(error.message))
+}  
 };
 
 const signIn = (email) => {
@@ -26,8 +30,8 @@ const isUser = (email) => {
 };
 
 const addDiary = (body, user_id) => {
- const {name, description, content} = body;
- const payload = [name, description, content, user_id];
+ const {name, description, content, imagefile} = body;
+ const payload = [name, description, content, imagefile, user_id];
  return db.any(queries.addDiary, payload);
 };
 
@@ -37,8 +41,8 @@ const updateDiary = (body) => {
   return db.any(queries.updateDiary, payload);
  };
 
-const fetchUserDiary = (id) => {
-   const payload = [id];
+const fetchUserDiary = (userId) => {
+   const payload = [userId];
    return db.any(queries.fetchUsers, payload);
  }; 
 

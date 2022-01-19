@@ -13,8 +13,8 @@ const queries = {
   login: `SELECT * FROM users WHERE email=$1`,
   editUser: `
 UPDATE users
-    SET first_name = $1,
-    last_name = $2,
+    SET firstName = $1,
+    lastName = $2,
     email = $3
     WHERE id = $4
     RETURNING *
@@ -30,8 +30,9 @@ UPDATE users
         name,
         description,
         content,
-        user_id
-    )   VALUES($1, $2, $3, $4) RETURNING * 
+        imagefile,
+        userId
+    )   VALUES($1, $2, $3, $4, $5) RETURNING * 
     `,
   userDiaries: `
   SELECT * FROM diary
@@ -52,7 +53,7 @@ UPDATE users
         RETURNING *
     `,
   fetchUsers: `
-    SELECT name, description, content FROM diary WHERE user_id=$1 
+    SELECT name, description, content FROM diary WHERE userId=$1 
     `,
   searchDiary: `
     SELECT	* 
@@ -72,7 +73,7 @@ UPDATE users
          name,
         description,
         content,
-        user_id
+        userId
     )   VALUES($1, $2, $3, $4) RETURNING * 
 
     `,

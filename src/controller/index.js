@@ -23,6 +23,7 @@ dotenv.config();
 const createNewUser = async (req, res) => {
   try {
     const { body } = req;
+    console.log('...../', process.env.NODE_ENV);
     const newUser = await createUser(body);
     const { password, ...user } = newUser;
     res.status(201).json({
@@ -39,11 +40,11 @@ const logIn = async (req, res) => {
   try {
     const { email, password} = req.body;
     const user = await signIn(email);
-    const { password: pwd, is_admin, id, ...rest } = user[0];
+    const { password: pwd, isAdmin, id, ...rest } = user[0];
     const passwordIsCorrect = bcrypt.compareSync(password, pwd);
 
     if (passwordIsCorrect) {
-      const payload = { user_id: id, is_admin, email };
+      const payload = { user_id: id, isAdmin, email };
       const token = jwt.sign(payload, config.SECRET_KEY, {
         expiresIn: 60 * 60 * 10, // 10 hours
       });
@@ -54,7 +55,7 @@ const logIn = async (req, res) => {
         message: 'user authenticated',
         data: {
           id,
-          is_admin,
+          isAdmin,
           ...rest,
         },
         token,
@@ -71,7 +72,9 @@ const logIn = async (req, res) => {
 };
 
 const diary = async (req, res) => {
+  console.log('filee==>>', req.file);
   const add_diary = req.body;
+  // console.log("========>>>>>>>", req.body, req.file)
   const userDiary = await addDiary(add_diary, req.decoded.user_id);
   try {
     res.json({
@@ -105,8 +108,8 @@ const updateUserDiary = async (req, res) => {
 const getUserDiary = async (req, res) => {
   try {
     const { id } = req.params;
-    const diary = await fetchUserDiary(id);
-    if (!diary) {
+    const userDiary = await fetchUserDiary(id);
+    if (userDiary.length === 0) {
       res.json({
         status: 'error',
         message: `No user with ${id} found`,
@@ -115,7 +118,7 @@ const getUserDiary = async (req, res) => {
       res.json({
         status: 'success',
         message: 'successfully fetched user diary',
-        data: [...diary],
+        data: userDiary,
       });
     }
   } catch (error) {

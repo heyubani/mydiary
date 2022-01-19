@@ -46,7 +46,7 @@ const authenticateToken = (req, res, next) => {
 
 const authenticateIsAdmin = async (req, res, next) => {
   try {
-    const userIsAdmin = req.decoded.is_admin;
+    const userIsAdmin = req.decoded.isAdmin;
     if(!userIsAdmin){
       res.json({
         status: "failed",

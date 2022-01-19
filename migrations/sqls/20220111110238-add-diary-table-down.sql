@@ -1,2 +1,2 @@
 /* Replace with your SQL commands */
-drop Table diary
+drop Table if exists diary;

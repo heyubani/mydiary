@@ -6,7 +6,7 @@ const {
     APP_PORT,
     NODE_ENV
 } = process.env
-
+console.log('>>>>>>>', NODE_ENV);
 const currentEnv = {
   development,
   test

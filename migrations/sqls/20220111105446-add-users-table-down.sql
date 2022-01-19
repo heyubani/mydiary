@@ -1,3 +1,3 @@
 /* Replace with your SQL commands */
 
-drop Table users 
+drop Table if exists users;

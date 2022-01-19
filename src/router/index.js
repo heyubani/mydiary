@@ -1,5 +1,5 @@
 const express = require('express');
-const fileUpLoad = require('../middleware/fileUpload')
+const upload  = require('../middleware/multer')
 const { createUserSchema, loginUserSchema, addDiarySchema} = require("../validation")
 const {
   checkUser,
@@ -31,8 +31,8 @@ const router = express.Router();
 
 // user endpoints
 router.post('/api/signup',validateUser(createUserSchema), allUsers, checkUser, createNewUser);
-router.post('/api/signin',validateUser(loginUserSchema),checkUser, logIn);
-router.post('/api/user/diary',validateUser(addDiarySchema), authenticateToken,fileUpLoad, diary);
+router.post('/api/signin',validateUser(loginUserSchema), logIn);
+router.post('/api/user/diary',validateUser(addDiarySchema), authenticateToken, upload.single('imagefile'), diary);
 router.put('/api/user/diary/:id', authenticateToken, updateUserDiary);
 router.get('/api/user/diary/:id', authenticateToken, getUserDiary);
 router.get('/api/user/search/diary', authenticateToken, UserSearchDiary);
